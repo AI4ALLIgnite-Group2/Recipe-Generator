@@ -1,20 +1,46 @@
-import streamlit as st
 import pandas as pd
-import numpy as np
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
 import joblib
 
-# Load the trained model
-model = joblib.load('model_filename.pkl')
+# Set a random seed for reproducibility
+seed = 42
 
-st.title('Recipe Rating Predictor')
+# Paths to the dataset files
+recipes_path = "/path/to/recipes.csv"
+ratings_path = "/path/to/ratings.csv"
 
-# Create sliders for input features
-ingredient1 = st.slider('Ingredient 1 Quantity', 0, 100, 25)
-ingredient2 = st.slider('Ingredient 2 Quantity', 0, 100, 25)
-ingredient3 = st.slider('Ingredient 3 Quantity', 0, 100, 25)
+# Load your datasets
+recipes = pd.read_csv(recipes_path)
+ratings = pd.read_csv(ratings_path)
 
-if st.button('Predict Rating'):
-    # Prepare the input data
-    input_data = np.array([[ingredient1, ingredient2, ingredient3]])
-    prediction = model.predict(input_data)
-    st.write(f'The predicted rating for your recipe is: {prediction[0]}')
+# Merging recipes and ratings data on 'id', which is a common column in both datasets
+data = pd.merge(recipes, ratings, on='id')
+
+# Example preprocessing: Selecting features and target variable
+# Replace 'feature1', 'feature2', 'feature3' with actual feature column names from your dataset
+X = data[['feature1', 'feature2', 'feature3']]
+y = data['rating']  # Target variable for prediction
+
+# Handling missing values, if there are any
+X.fillna(X.mean(), inplace=True)
+y.fillna(y.mean(), inplace=True)
+
+# Splitting the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=seed)
+
+# Initializing and training the RandomForestRegressor
+model = RandomForestRegressor(n_estimators=100, random_state=seed)
+model.fit(X_train, y_train)
+
+# Making predictions on the test data
+y_pred = model.predict(X_test)
+
+# Calculating the Mean Squared Error (MSE) for the predictions
+mse = mean_squared_error(y_test, y_pred)
+print(f"Mean Squared Error: {mse}")
+
+# Save the trained model to a file for later use
+joblib.dump(model, "recipe_rating_model.pkl")
