@@ -1,1 +1,12 @@
-There is Raw Interactions but the File is to big
+# Note on Large Files
+
+## Overview
+This repository contains several large files that are not tracked via Git due to their size. These files are crucial for the projects within this repository and include datasets, binaries, or large assets necessary for certain applications.
+
+## Handling Large Files
+Due to GitHub's file size restrictions, large files are stored externally.
+
+
+
+2. **External Storage**:
+   - Some files are stored on [External Storage Link]. 
