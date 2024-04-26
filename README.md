@@ -173,4 +173,4 @@ This project was completed in collaboration with a dedicated team of researchers
 
 **Special Thanks:**
 
-We would like to extend our deepest gratitude to our educators and mentors, **Cecilia Gervasoni** and **Jon Doane**, who provided invaluable guidance and support throughout the project. Their expertise and insights were crucial in shaping the direction and execution of our work.
+We would like to extend our deepest gratitude to our educators and mentors, **Cecilia Gervasoni** , **Rand Forrester** and **Jon Doane**, who provided invaluable guidance and support throughout the project. Their expertise and insights were crucial in shaping the direction and execution of our work.
